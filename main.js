@@ -51,9 +51,9 @@ const displayData = (data, length) =>{
 
                         <!-- Put this part before </body> tag -->
                         <input type="checkbox" id="my-modal-3" class="modal-toggle" />
-                        <div class="modal">
+                        <div class="modal bg-opacity-80 transition-all">
                             <div class="modal-box relative w-11/12 max-w-5xl h-5xl">
-                                <label for="my-modal-3" class="btn btn-sm btn-error btn-circle absolute right-0 top-0 text-white">✕</label>
+                                <label for="my-modal-3" class="btn btn-md btn-error btn-circle absolute right-0 top-0 text-white">✕</label>
                                 <br>
                                 <div id="modal-body" class="p-5">
   
@@ -96,43 +96,42 @@ const modalDetails = cardData =>{
     const body = document.getElementById("modal-body");
     body.innerHTML = `
         <div class="flex gap-5">
-            <div class="border border-red-400 p-5 bg-red-50 space-y-5 rounded-xl">
+            <div class="border border-red-400 p-5 bg-red-50 space-y-5 rounded-xl w-full shadow-xl">
                 <p class="text-xl font-bold">${cardData.description}</P>
                 <div class="flex gap-3 font-bold">
-                    <p class="text-green-700 p-5 bg-white rounded-md">${cardData.pricing ? cardData.pricing[0].price : "No Data Found"}  <br> ${cardData.pricing ? cardData.pricing[0].plan : "No Data Found"}</p>
-                    <p class="text-orange-500 p-5 bg-white rounded-md">${cardData.pricing ? cardData.pricing[1].price : "No Data Found"}  <br> ${cardData.pricing ? cardData.pricing[1].plan : "No Data Found"}</p>
-                    <p class="text-pink-700 p-5 bg-white rounded-md">${cardData.pricing ? cardData.pricing[2].price : "No Data Found"}  <br> ${cardData.pricing ? cardData.pricing[2].plan : "No Data Found"}</p>
+                    <p class="text-green-700 p-5 bg-white rounded-md w-full">${cardData.pricing ? cardData.pricing[0].price : "No Data Found"}  <br> ${cardData.pricing ? cardData.pricing[0].plan : "No Data Found"}</p>
+                    <p class="text-orange-500 p-5 bg-white rounded-md w-full">${cardData.pricing ? cardData.pricing[1].price : "No Data Found"}  <br> ${cardData.pricing ? cardData.pricing[1].plan : "No Data Found"}</p>
+                    <p class="text-pink-700 p-5 bg-white rounded-md w-full">${cardData.pricing ? cardData.pricing[2].price : "No Data Found"}  <br> ${cardData.pricing ? cardData.pricing[2].plan : "No Data Found"}</p>
                 </div>
                 <div class="flex gap-5 justify-between">
                     <div>
-                        <p class="text-xl font-bold">Features</p>
-                        <ul class="list-disc list-inside text-gray-500">
+                        <p class="text-xl font-bold mb-2">Features</p>
+                        <ul class="list-disc list-inside text-gray-500 space-y-2">
                             <li>${cardData.features ? cardData.features[1].feature_name : "No Data Found"}</li>
                             <li>${cardData.features ? cardData.features[2].feature_name : "No Data Found"}</li>
                             <li>${cardData.features ? cardData.features[3].feature_name : "No Data Found"}</li>
                         </ul>
                     </div>
                     <div>
-                        <p class="text-xl font-bold">Integrations</p>
-                        <ul class="list-disc list-inside text-gray-500">
-                            <li>${cardData.integrations ? cardData.integrations[0] : "No Data Found"}</li>
-                            <li>${cardData.integrations ? cardData.integrations[1] : "No Data Found"}</li>
-                            <li>${cardData.integrations ? cardData.integrations[2] : "No Data Found"}</li> 
+                        <p class="text-xl font-bold mb-2">Integrations</p>
+                        <ul class="list-disc list-inside text-gray-500 space-y-2">
+                            <li>${cardData.integrations ? (cardData.integrations[0] ? cardData.integrations[0] : "No Data Found") : "No Data Found"}</li>
+                            <li>${cardData.integrations ? (cardData.integrations[1] ? cardData.integrations[1] : "No Data Found") : "No Data Found"}</li>
+                            <li>${cardData.integrations ? (cardData.integrations[2] ? cardData.integrations[2] : "No Data Found" ) : "No Data Found"}</li> 
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="border p-5 rounded-xl text-center space-y-3">
-                
-                <img src="${cardData.image_link[0]}" class="rounded-xl relative">
-                <button class="bg-red-400 text-white p-1 rounded-md absolute top-2 right-2 hidden" id="${cardData.id}">${cardData.accuracy.score*100}% accuracy</button>
-                <p class="text-xl font-bold">${cardData.input_output_examples ? cardData.input_output_examples[0].input : "No Data Found"}</p>
+            <div class="border p-5 rounded-xl text-center relative w-full shadow-xl">
+                <button class="bg-red-400 text-white p-2 rounded-md font-semibold absolute top-6 right-6 hidden" id="${cardData.id}">${cardData.accuracy.score*100}% accuracy</button>
+                <img src="${cardData.image_link[0]}" class="rounded-xl mb-5">
+                <p class="text-xl font-bold mb-5">${cardData.input_output_examples ? cardData.input_output_examples[0].input : "No Data Found"}</p>
                 <p class="text-gray-500">${cardData.input_output_examples ? cardData.input_output_examples[0].output : "No Data Found"}</p>
             </div>
         </div>
     `;
     const score = cardData.accuracy.score;
-    console.log(score);
+    // console.log(score);
     const imgContainer = document.getElementById(`${cardData.id}`);
     if(cardData.accuracy.score == null){
         imgContainer.classList.add("hidden");
