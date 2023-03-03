@@ -51,11 +51,11 @@ const displayData = (data, length) =>{
 
                         <!-- Put this part before </body> tag -->
                         <input type="checkbox" id="my-modal-3" class="modal-toggle" />
-                        <div class="modal bg-opacity-80 transition-all">
+                        <div class="modal md:bg-opacity-80 transition-all">
                             <div class="modal-box relative w-11/12 max-w-5xl h-5xl">
                                 <label for="my-modal-3" class="btn btn-md btn-error btn-circle absolute right-0 top-0 text-white">✕</label>
                                 <br>
-                                <div id="modal-body" class="p-5">
+                                <div id="modal-body" class="md:p-5">
   
                                 </div>
                             </div>
@@ -95,15 +95,15 @@ const modalDetails = cardData =>{
     console.log(cardData);
     const body = document.getElementById("modal-body");
     body.innerHTML = `
-        <div class="flex gap-5">
+        <div class="flex gap-5 md:flex-row flex-col">
             <div class="border border-red-400 p-5 bg-red-50 space-y-5 rounded-xl w-full shadow-xl">
                 <p class="text-xl font-bold">${cardData.description}</P>
-                <div class="flex gap-3 font-bold">
+                <div class="flex gap-3 font-bold md:flex-row flex-col">
                     <p class="text-green-700 p-5 bg-white rounded-md w-full">${cardData.pricing ? cardData.pricing[0].price : "No Data Found"}  <br> ${cardData.pricing ? cardData.pricing[0].plan : "No Data Found"}</p>
                     <p class="text-orange-500 p-5 bg-white rounded-md w-full">${cardData.pricing ? cardData.pricing[1].price : "No Data Found"}  <br> ${cardData.pricing ? cardData.pricing[1].plan : "No Data Found"}</p>
                     <p class="text-pink-700 p-5 bg-white rounded-md w-full">${cardData.pricing ? cardData.pricing[2].price : "No Data Found"}  <br> ${cardData.pricing ? cardData.pricing[2].plan : "No Data Found"}</p>
                 </div>
-                <div class="flex gap-5 justify-between">
+                <div class="flex gap-5 justify-between md:flex-row flex-col">
                     <div>
                         <p class="text-xl font-bold mb-2">Features</p>
                         <ul class="list-disc list-inside text-gray-500 space-y-2">
@@ -122,9 +122,9 @@ const modalDetails = cardData =>{
                     </div>
                 </div>
             </div>
-            <div class="border p-5 rounded-xl text-center relative w-full shadow-xl">
-                <button class="bg-red-400 text-white p-2 rounded-md font-semibold absolute top-6 right-6 hidden" id="${cardData.id}">${cardData.accuracy.score*100}% accuracy</button>
-                <img src="${cardData.image_link[0]}" class="rounded-xl mb-5">
+            <div class="border md:p-5 rounded-xl text-center relative w-full shadow-xl">
+                <button class="bg-red-400 text-white md:p-2 p-px rounded-md md:font-semibold absolute md:top-6 top-0 md:right-6 right-0 hidden" id="${cardData.id}">${cardData.accuracy.score*100}% accuracy</button>
+                <img src="${cardData.image_link[0]}" class="rounded-xl mb-5 w-full">
                 <p class="text-xl font-bold mb-5">${cardData.input_output_examples ? cardData.input_output_examples[0].input : "No Data Found"}</p>
                 <p class="text-gray-500">${cardData.input_output_examples ? cardData.input_output_examples[0].output : "No Data Found"}</p>
             </div>
