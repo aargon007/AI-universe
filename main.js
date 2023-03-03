@@ -1,14 +1,16 @@
 //sort and store api data in array
 let apiData = [];
 // fetch api and get the data 
-const loadData = (length) =>{
+const loadData = async (length) =>{
     const url = "https://openapi.programming-hero.com/api/ai/tools";
-    fetch(url)
-    .then(res => res.json())
-    .then(data => {
+    try{
+        const res = await fetch(url);
+        const data = await res.json();
         apiData = data.data.tools;
         displayData(apiData, length);
-    });
+    } catch(error) {
+        console.log(error);
+    }
 }
 //display data for each card
 const displayData = (data, length) =>{
@@ -85,11 +87,15 @@ document.getElementById("sort-by-date").addEventListener("click", function(){
 })
 
 //modal - show details
-const showDetails = id => {
+const showDetails = async id => {
     const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
-    fetch(url)
-    .then(res => res.json())
-    .then(data => modalDetails(data.data))
+    try{
+        const res = await fetch(url);
+        const data = await res.json();
+        modalDetails(data.data)
+    } catch(error) {
+        console.log(error);
+    }
 }
 const modalDetails = cardData =>{
     // console.log(cardData);
