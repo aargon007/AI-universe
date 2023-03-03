@@ -44,7 +44,20 @@ const displayData = (data, length) =>{
         `;
         cardContainer.appendChild(div);
     });
+    //stop load spinner
+    togglespinner(false);
 }
+
+//loader spinner
+const togglespinner = isLoading =>{
+    const spinner = document.getElementById("loader");
+    if(isLoading){
+        spinner.classList.remove("hidden");
+    } else{
+        spinner.classList.add("hidden");
+    }
+}
+
 //after clicking see-more button show all card
 document.getElementById("see-more").addEventListener("click", function(){
     const loadData = (length) =>{
@@ -53,7 +66,10 @@ document.getElementById("see-more").addEventListener("click", function(){
         .then(res => res.json())
         .then(data => displayData(data.data.tools, data.data.tools.length))
     }
+    togglespinner(true);
     loadData();
 })
-//load 6 card by defualt
+
+//load 6 card by defualt with togglespinner
+togglespinner(true);
 loadData(6);
