@@ -1,9 +1,15 @@
+//sort array
+let apiData = [];
 // fetch api and get the data 
 const loadData = (length) =>{
     const url = "https://openapi.programming-hero.com/api/ai/tools";
     fetch(url)
     .then(res => res.json())
-    .then(data => displayData(data.data.tools, length))
+    .then(data => {
+        apiData = data.data.tools;
+        displayData(apiData, length);
+     });
+        
 }
 //display data for each card
 const displayData = (data, length) =>{
@@ -48,6 +54,21 @@ const displayData = (data, length) =>{
     togglespinner(false);
 }
 
+//sort by date
+document.getElementById("sort-by-date").addEventListener("click", function(){
+    // console.log(apiData);
+    apiData.sort(function(a, b) {
+        var parseDate = function parseDate(dateAsString) {
+                var dateParts = dateAsString.split("/");
+                return new Date(parseInt(dateParts[2], 10), parseInt(dateParts[1], 10) - 1, parseInt(dateParts[0], 10));
+            };
+    
+        return parseDate(b.published_in) - parseDate(a.published_in);
+    });
+    // console.log(apiData);
+    displayData(apiData, 6);
+})
+
 //loader spinner
 const togglespinner = isLoading =>{
     const spinner = document.getElementById("loader");
@@ -60,14 +81,8 @@ const togglespinner = isLoading =>{
 
 //after clicking see-more button show all card
 document.getElementById("see-more").addEventListener("click", function(){
-    const loadData = (length) =>{
-        const url = "https://openapi.programming-hero.com/api/ai/tools";
-        fetch(url)
-        .then(res => res.json())
-        .then(data => displayData(data.data.tools, data.data.tools.length))
-    }
     togglespinner(true);
-    loadData();
+    displayData(apiData,apiData.length);
 })
 
 //load 6 card by defualt with togglespinner
