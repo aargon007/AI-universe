@@ -45,14 +45,14 @@ const displayData = (data, length) =>{
                     </div>
                     <div>
                         <!-- The button to open modal -->
-                        <label for="my-modal-3" class="btn text-[#EB5757] bg-red-50 hover:bg-red-300 p-3 rounded-full border-0" onclick="showDetails('${feature.id}')">
+                        <label for="my-modal-3" class="btn text-[#EB5757] bg-red-100 hover:bg-red-300 p-3 btn-circle border-0" onclick="showDetails('${feature.id}')">
                             <i class="fa-solid fa-arrow-right"></i>
                         </label>
 
                         <!-- Put this part before </body> tag -->
                         <input type="checkbox" id="my-modal-3" class="modal-toggle" />
                         <div class="modal md:bg-opacity-80 transition-all">
-                            <div class="modal-box relative w-11/12 max-w-5xl h-5xl">
+                            <div class="modal-box relative w-11/12 max-w-5xl h-5xl bg-white">
                                 <label for="my-modal-3" class="btn btn-md btn-error btn-circle absolute right-0 top-0 text-white">✕</label>
                                 <br>
                                 <div id="modal-body" class="md:p-5">
@@ -92,7 +92,7 @@ const showDetails = id => {
     .then(data => modalDetails(data.data))
 }
 const modalDetails = cardData =>{
-    console.log(cardData);
+    // console.log(cardData);
     const body = document.getElementById("modal-body");
     body.innerHTML = `
         <div class="flex gap-5 md:flex-row flex-col">
