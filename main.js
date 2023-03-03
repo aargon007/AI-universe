@@ -1,4 +1,4 @@
-//sort array
+//sort and store api data array
 let apiData = [];
 // fetch api and get the data 
 const loadData = (length) =>{
@@ -9,7 +9,6 @@ const loadData = (length) =>{
         apiData = data.data.tools;
         displayData(apiData, length);
      });
-        
 }
 //display data for each card
 const displayData = (data, length) =>{
@@ -27,7 +26,7 @@ const displayData = (data, length) =>{
     }
     //extract each array item by using forEach method
     data.forEach(feature => {
-        console.log(feature);
+        // console.log(feature);
         const div = document.createElement("div");
         div.classList.add("border", "p-5", "rounded-xl", "space-y-3", "shadow-lg");
         div.innerHTML = `
@@ -42,10 +41,26 @@ const displayData = (data, length) =>{
                 <div class="flex justify-between items-center">
                     <div class="space-y-3">
                         <h3 class="text-xl font-bold">${feature.name}</h3>
-                        <p><i class="fa-solid fa-calendar-days"></i> ${feature.published_in
-                        }</p>
+                        <p><i class="fa-solid fa-calendar-days"></i> ${feature.published_in}</p>
                     </div>
-                    <button class="text-[#EB5757] bg-red-50 hover:bg-red-300 p-3 rounded-full"><i class="fa-solid fa-arrow-right"></i></button>
+                    <div>
+                        <!-- The button to open modal -->
+                        <label for="my-modal-3" class="btn text-[#EB5757] bg-red-50 hover:bg-red-300 p-3 rounded-full border-0" onclick="showDetails('${feature.id}')">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </label>
+
+                        <!-- Put this part before </body> tag -->
+                        <input type="checkbox" id="my-modal-3" class="modal-toggle" />
+                        <div class="modal">
+                            <div class="modal-box relative w-11/12 max-w-5xl">
+                                <label for="my-modal-3" class="btn btn-sm btn-error btn-circle absolute right-2 top-2 text-white">✕</label>
+                                <br>
+                                <div id="modal-body" class="p-5 border border-red-400">
+  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
         `;
         cardContainer.appendChild(div);
@@ -69,6 +84,53 @@ document.getElementById("sort-by-date").addEventListener("click", function(){
     displayData(apiData, 6);
 })
 
+//modal - show details
+const showDetails = id => {
+    const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+    fetch(url)
+    .then(res => res.json())
+    .then(data => modalDetails(data.data))
+}
+const modalDetails = cardData =>{
+    console.log(cardData);
+    const body = document.getElementById("modal-body");
+    body.innerHTML = `
+        <div class="flex gap-5">
+            <div>
+                <p>${cardData.description}</P>
+                <div class="flex gap-3">
+                    <p>${cardData.pricing[0].price} <br> ${cardData.pricing[0].plan}</p>
+                    <p>${cardData.pricing[1].price} <br> ${cardData.pricing[1].plan}</p>
+                    <p>${cardData.pricing[2].price} <br> ${cardData.pricing[2].plan}</p>
+                </div>
+                <div class="flex gap-5">
+                    <div>
+                        <p>Features</p>
+                        <ul>
+                            <li>${cardData.features[1].feature_name}</li>
+                            <li>${cardData.features[2].feature_name}</li>
+                            <li>${cardData.features[3].feature_name}</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p>Integrations</p>
+                        <ul>
+                            <li>${cardData.integrations[0]}</li>
+                            <li>${cardData.integrations[1]}</li>
+                            <li>${cardData.integrations[2]}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <img src="${cardData.image_link[0]}">
+                <p>${cardData.input_output_examples[0].input}</p>
+                <p>${cardData.input_output_examples[0].output}</p>
+            </div>
+        </div>
+    `
+
+}
 //loader spinner
 const togglespinner = isLoading =>{
     const spinner = document.getElementById("loader");
