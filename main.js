@@ -99,38 +99,48 @@ const modalDetails = cardData =>{
             <div class="border border-red-400 p-5 bg-red-50 space-y-5 rounded-xl">
                 <p class="text-xl font-bold">${cardData.description}</P>
                 <div class="flex gap-3 font-bold">
-                    <p class="text-green-700 p-5 bg-white rounded-md">${cardData.pricing[0].price} <br> ${cardData.pricing[0].plan}</p>
-                    <p class="text-orange-500 p-5 bg-white rounded-md">${cardData.pricing[1].price} <br> ${cardData.pricing[1].plan}</p>
-                    <p class="text-pink-700 p-5 bg-white rounded-md">${cardData.pricing[2].price} <br> ${cardData.pricing[2].plan}</p>
+                    <p class="text-green-700 p-5 bg-white rounded-md">${cardData.pricing ? cardData.pricing[0].price : "No Data Found"}  <br> ${cardData.pricing ? cardData.pricing[0].plan : "No Data Found"}</p>
+                    <p class="text-orange-500 p-5 bg-white rounded-md">${cardData.pricing ? cardData.pricing[1].price : "No Data Found"}  <br> ${cardData.pricing ? cardData.pricing[1].plan : "No Data Found"}</p>
+                    <p class="text-pink-700 p-5 bg-white rounded-md">${cardData.pricing ? cardData.pricing[2].price : "No Data Found"}  <br> ${cardData.pricing ? cardData.pricing[2].plan : "No Data Found"}</p>
                 </div>
                 <div class="flex gap-5 justify-between">
                     <div>
                         <p class="text-xl font-bold">Features</p>
                         <ul class="list-disc list-inside text-gray-500">
-                            <li>${cardData.features[1].feature_name}</li>
-                            <li>${cardData.features[2].feature_name}</li>
-                            <li>${cardData.features[3].feature_name}</li>
+                            <li>${cardData.features ? cardData.features[1].feature_name : "No Data Found"}</li>
+                            <li>${cardData.features ? cardData.features[2].feature_name : "No Data Found"}</li>
+                            <li>${cardData.features ? cardData.features[3].feature_name : "No Data Found"}</li>
                         </ul>
                     </div>
                     <div>
                         <p class="text-xl font-bold">Integrations</p>
                         <ul class="list-disc list-inside text-gray-500">
-                            <li>${cardData.integrations[0] ? cardData.integrations[0] : ""}</li>
-                            <li>${cardData.integrations[1] ? cardData.integrations[1] : "Data not available"}</li>
-                            <li>${cardData.integrations[2] ? cardData.integrations[2] : "Data not available"}</li>
+                            <li>${cardData.integrations ? cardData.integrations[0] : "No Data Found"}</li>
+                            <li>${cardData.integrations ? cardData.integrations[1] : "No Data Found"}</li>
+                            <li>${cardData.integrations ? cardData.integrations[2] : "No Data Found"}</li> 
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="border p-5 rounded-xl text-center space-y-3">
-                <img src="${cardData.image_link[0]}" class="rounded-xl">
-                <p class="text-xl font-bold">${cardData.input_output_examples[0].input}</p>
-                <p class="text-gray-500">${cardData.input_output_examples[0].output}</p>
+                
+                <img src="${cardData.image_link[0]}" class="rounded-xl relative">
+                <button class="bg-red-400 text-white p-1 rounded-md absolute top-2 right-2 hidden" id="${cardData.id}">${cardData.accuracy.score*100}% accuracy</button>
+                <p class="text-xl font-bold">${cardData.input_output_examples ? cardData.input_output_examples[0].input : "No Data Found"}</p>
+                <p class="text-gray-500">${cardData.input_output_examples ? cardData.input_output_examples[0].output : "No Data Found"}</p>
             </div>
         </div>
-    `
-
+    `;
+    const score = cardData.accuracy.score;
+    console.log(score);
+    const imgContainer = document.getElementById(`${cardData.id}`);
+    if(cardData.accuracy.score == null){
+        imgContainer.classList.add("hidden");
+    } else {
+        imgContainer.classList.remove("hidden");
+    }
 }
+
 //loader spinner
 const togglespinner = isLoading =>{
     const spinner = document.getElementById("loader");
