@@ -52,10 +52,10 @@ const displayData = (data, length) =>{
                         <!-- Put this part before </body> tag -->
                         <input type="checkbox" id="my-modal-3" class="modal-toggle" />
                         <div class="modal">
-                            <div class="modal-box relative w-11/12 max-w-5xl">
-                                <label for="my-modal-3" class="btn btn-sm btn-error btn-circle absolute right-2 top-2 text-white">✕</label>
+                            <div class="modal-box relative w-11/12 max-w-5xl h-5xl">
+                                <label for="my-modal-3" class="btn btn-sm btn-error btn-circle absolute right-0 top-0 text-white">✕</label>
                                 <br>
-                                <div id="modal-body" class="p-5 border border-red-400">
+                                <div id="modal-body" class="p-5">
   
                                 </div>
                             </div>
@@ -96,36 +96,36 @@ const modalDetails = cardData =>{
     const body = document.getElementById("modal-body");
     body.innerHTML = `
         <div class="flex gap-5">
-            <div>
-                <p>${cardData.description}</P>
-                <div class="flex gap-3">
-                    <p>${cardData.pricing[0].price} <br> ${cardData.pricing[0].plan}</p>
-                    <p>${cardData.pricing[1].price} <br> ${cardData.pricing[1].plan}</p>
-                    <p>${cardData.pricing[2].price} <br> ${cardData.pricing[2].plan}</p>
+            <div class="border border-red-400 p-5 bg-red-50 space-y-5 rounded-xl">
+                <p class="text-xl font-bold">${cardData.description}</P>
+                <div class="flex gap-3 font-bold">
+                    <p class="text-green-700 p-5 bg-white rounded-md">${cardData.pricing[0].price} <br> ${cardData.pricing[0].plan}</p>
+                    <p class="text-orange-500 p-5 bg-white rounded-md">${cardData.pricing[1].price} <br> ${cardData.pricing[1].plan}</p>
+                    <p class="text-pink-700 p-5 bg-white rounded-md">${cardData.pricing[2].price} <br> ${cardData.pricing[2].plan}</p>
                 </div>
-                <div class="flex gap-5">
+                <div class="flex gap-5 justify-between">
                     <div>
-                        <p>Features</p>
-                        <ul>
+                        <p class="text-xl font-bold">Features</p>
+                        <ul class="list-disc list-inside text-gray-500">
                             <li>${cardData.features[1].feature_name}</li>
                             <li>${cardData.features[2].feature_name}</li>
                             <li>${cardData.features[3].feature_name}</li>
                         </ul>
                     </div>
                     <div>
-                        <p>Integrations</p>
-                        <ul>
-                            <li>${cardData.integrations[0]}</li>
-                            <li>${cardData.integrations[1]}</li>
-                            <li>${cardData.integrations[2]}</li>
+                        <p class="text-xl font-bold">Integrations</p>
+                        <ul class="list-disc list-inside text-gray-500">
+                            <li>${cardData.integrations[0] ? cardData.integrations[0] : ""}</li>
+                            <li>${cardData.integrations[1] ? cardData.integrations[1] : "Data not available"}</li>
+                            <li>${cardData.integrations[2] ? cardData.integrations[2] : "Data not available"}</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div>
-                <img src="${cardData.image_link[0]}">
-                <p>${cardData.input_output_examples[0].input}</p>
-                <p>${cardData.input_output_examples[0].output}</p>
+            <div class="border p-5 rounded-xl text-center space-y-3">
+                <img src="${cardData.image_link[0]}" class="rounded-xl">
+                <p class="text-xl font-bold">${cardData.input_output_examples[0].input}</p>
+                <p class="text-gray-500">${cardData.input_output_examples[0].output}</p>
             </div>
         </div>
     `
